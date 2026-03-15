@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TruthScan — Reveal the Truth</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:wght@300;400&family=DM+Sans:wght@300;400;500;600&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+
+:root{
+  --gold:#c9a84c;
+  --cream:#f0e6cc;
+  --dark:#080b10;
+  --dark2:#0d1117;
+  --dark3:#111820;
+  --border:rgba(201,168,76,0.15);
+  --text:#e2e8f0;
+  --muted:#7a8899;
+  --accent:#4a9eff;
+  --accent2:#c9a84c;
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+  background:#000;
+  overflow-x:hidden;
+  font-family:'DM Sans',sans-serif;
+  color:var(--text);
+}
+
+/* ─── HOMEPAGE ─── */
+#homepage{
+  position:relative;
+  background:var(--dark);
+}
+
+/* NAV */
+nav{
+  position:sticky;
+  top:0;
+  z-index:50;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 48px;
+  height:68px;
+  background:rgba(8,11,16,0.85);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border);
+}
+
+.nav-logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-family:'Syne',sans-serif;
+  font-size:1.2rem;
+  font-weight:700;
+  color:#fff;
+  text-decoration:none;
+  letter-spacing:0.02em;
+}
+
+.nav-logo-mark{
+  width:32px;height:32px;
+  background:linear-gradient(135deg,#4a9eff,#c9a84c);
+  border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.75rem;font-weight:800;color:#fff;
+  font-family:'Syne',sans-serif;
+}
+
+.nav-links{
+  display:flex;align-items:center;gap:32px;
+  list-style:none;
+}
+
+.nav-links li{
+  position:relative;
+}
+
+.nav-links a{
+  font-size:0.85rem;
+  font-weight:400;
+  color:var(--muted);
+  text-decoration:none;
+  letter-spacing:0.03em;
+  transition:color 0.2s;
+  cursor:pointer;
+  display:block;
+  padding:4px 0;
+}
+
+.nav-links a:hover{color:var(--text);}
+.nav-links .has-arrow::after{content:' ↓';font-size:0.7rem;}
+
+.nav-actions{display:flex;align-items:center;gap:12px;}
+
+.btn{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:9px 20px;
+  border-radius:8px;
+  font-size:0.82rem;
+  font-weight:500;
+  font-family:'DM Sans',sans-serif;
+  cursor:pointer;
+  text-decoration:none;
+  transition:all 0.2s;
+  letter-spacing:0.02em;
+  border:none;
+}
+
+.btn-ghost{
+  background:transparent;
+  border:1px solid var(--border);
+  color:var(--text);
+}
+
+.btn-ghost:hover{border-color:rgba(201,168,76,0.4);color:var(--gold);}
+
+.btn-primary{
+  background:linear-gradient(135deg,#1a6bd4,#2d8af0);
+  border:1px solid rgba(74,158,255,0.3);
+  color:#fff;
+  box-shadow:0 0 20px rgba(74,158,255,0.2);
+}
+
+.btn-primary:hover{box-shadow:0 0 30px rgba(74,158,255,0.4);transform:translateY(-1px);}
+
+.btn-gold{
+  background:linear-gradient(135deg,#b8922a,#dab84c);
+  border:none;
+  color:#0a0800;
+  font-weight:600;
+}
+
+.btn-gold:hover{box-shadow:0 0 25px rgba(201,168,76,0.4);transform:translateY(-1px);}
+
+/* ─── HERO ─── */
+.hero{
+  position:relative;
+  min-height:calc(100vh - 68px);
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:60px;
+  align-items:center;
+  padding:80px 80px 80px 80px;
+  overflow:hidden;
+}
+
+.hero::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 50%,rgba(74,158,255,0.06) 0%,transparent 70%),
+    radial-gradient(ellipse 40% 40% at 80% 20%,rgba(201,168,76,0.05) 0%,transparent 60%),
+    radial-gradient(ellipse 50% 60% at 70% 80%,rgba(74,158,255,0.04) 0%,transparent 60%);
+  pointer-events:none;
+}
+
+.hero::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px);
+  background-size:60px 60px;
+  pointer-events:none;
+  mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 40%,transparent 100%);
+}
+
+.hero-left{position:relative;z-index:2;}
+
+.hero-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:6px 14px;
+  background:rgba(74,158,255,0.08);
+  border:1px solid rgba(74,158,255,0.2);
+  border-radius:100px;
+  font-size:0.72rem;
+  font-weight:500;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:28px;
+}
+
+.hero-badge-dot{
+  width:6px;height:6px;
+  border-radius:50%;
+  background:var(--accent);
+  box-shadow:0 0 8px var(--accent);
+  animation:blink 2s ease-in-out infinite;
+}
+
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
+
+.hero-certs{
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:28px;
+}
+
+.cert-badge{
+  width:38px;height:38px;
+  border-radius:50%;
+  border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.55rem;
+  font-weight:700;
+  color:var(--muted);
+  background:var(--dark3);
+  text-align:center;
+  line-height:1.1;
+}
+
+h1{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(2.6rem,4vw,4rem);
+  font-weight:800;
+  line-height:1.08;
+  letter-spacing:-0.02em;
+  color:#fff;
+  margin-bottom:24px;
+}
+
+h1 .accent{
+  background:linear-gradient(135deg,#4a9eff,#7bc4ff);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+
+.hero-desc{
+  font-size:1rem;
+  line-height:1.7;
+  color:var(--muted);
+  max-width:520px;
+  margin-bottom:36px;
+  font-weight:300;
+}
+
+.hero-actions{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  flex-wrap:wrap;
+  margin-bottom:44px;
+}
+
+.btn-lg{padding:13px 28px;font-size:0.9rem;border-radius:10px;}
+
+.hero-features{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.feature-row{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:0.875rem;
+  color:var(--muted);
+}
+
+.feature-dot{
+  width:8px;height:8px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#22c55e,#16a34a);
+  box-shadow:0 0 8px rgba(34,197,94,0.5);
+  flex-shrink:0;
+}
+
+/* ─── DETECTION PANEL ─── */
+.detection-panel{
+  position:relative;
+  z-index:2;
+  background:rgba(13,17,23,0.8);
+  border:1px solid rgba(255,255,255,0.07);
+  border-radius:20px;
+  padding:32px;
+  backdrop-filter:blur(20px);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.03),
+    0 40px 80px rgba(0,0,0,0.5),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+.panel-header{
+  text-align:center;
+  margin-bottom:20px;
+  padding-bottom:20px;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+
+.panel-title{
+  font-family:'Syne',sans-serif;
+  font-size:1rem;
+  font-weight:600;
+  color:var(--accent);
+  margin-bottom:8px;
+}
+
+.panel-subtitle{
+  font-size:0.8rem;
+  color:var(--muted);
+  line-height:1.5;
+}
+
+.panel-subtitle strong{color:var(--text);}
+
+.panel-cta-link{
+  display:inline-block;
+  margin-top:10px;
+  font-size:0.8rem;
+  color:var(--accent);
+  text-decoration:underline;
+  cursor:pointer;
+}
+
+.upload-btn{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  width:100%;
+  padding:14px;
+  background:linear-gradient(135deg,#1a6bd4,#2d8af0);
+  border:none;
+  border-radius:12px;
+  color:#fff;
+  font-family:'DM Sans',sans-serif;
+  font-size:0.9rem;
+  font-weight:500;
+  cursor:pointer;
+  margin-bottom:20px;
+  transition:all 0.2s;
+  box-shadow:0 4px 20px rgba(74,158,255,0.25);
+}
+
+.upload-btn:hover{box-shadow:0 4px 30px rgba(74,158,255,0.4);transform:translateY(-1px);}
+.upload-icon{font-size:1.1rem;}
+
+/* Image grid */
+.img-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+}
+
+.img-tile{
+  aspect-ratio:4/3;
+  border-radius:10px;
+  overflow:hidden;
+  position:relative;
+  background:var(--dark3);
+  border:1px solid rgba(255,255,255,0.05);
+}
+
+.img-tile::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(160deg,rgba(74,158,255,0.04),transparent);
+}
+
+.face{
+  width:100%;height:100%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:2.5rem;
+  background:linear-gradient(135deg,var(--dark3),#161e28);
+}
+
+.face img{width:100%;height:100%;object-fit:cover;}
+
+.face-1{background:linear-gradient(135deg,#0d1520,#152030);}
+.face-2{background:linear-gradient(135deg,#150d20,#201525);}
+.face-3{background:linear-gradient(135deg,#0d1a15,#152520);}
+.face-4{background:linear-gradient(135deg,#1a1000,#251500);}
+.face-5{background:linear-gradient(135deg,#001a1a,#002525);}
+.face-6{background:linear-gradient(135deg,#1a0d1a,#250d25);}
+
+.img-tile .ai-tag{
+  position:absolute;
+  bottom:6px;left:6px;
+  padding:2px 7px;
+  font-size:0.55rem;
+  font-weight:600;
+  letter-spacing:0.06em;
+  border-radius:4px;
+  text-transform:uppercase;
+  z-index:2;
+}
+
+.ai-tag.real{background:rgba(34,197,94,0.2);border:1px solid rgba(34,197,94,0.3);color:#4ade80;}
+.ai-tag.fake{background:rgba(239,68,68,0.2);border:1px solid rgba(239,68,68,0.3);color:#f87171;}
+.ai-tag.scan{background:rgba(74,158,255,0.2);border:1px solid rgba(74,158,255,0.3);color:#7dd3fc;}
+
+.img-tile.scanning{overflow:hidden;}
+.img-tile.scanning::before{
+  content:'';
+  position:absolute;
+  left:0;right:0;
+  height:2px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);
+  top:0;
+  z-index:3;
+  animation:scanline 2s ease-in-out infinite;
+}
+
+@keyframes scanline{
+  0%{top:0;opacity:0;}
+  10%{opacity:1;}
+  90%{opacity:1;}
+  100%{top:100%;opacity:0;}
+}
+
+/* ─── STATS ROW ─── */
+.stats-row{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  border-top:1px solid var(--border);
+  margin-top:24px;
+  padding-top:20px;
+  gap:1px;
+}
+
+.stat{text-align:center;}
+
+.stat-num{
+  font-family:'Syne',sans-serif;
+  font-size:1.5rem;
+  font-weight:700;
+  color:#fff;
+  display:block;
+  margin-bottom:4px;
+}
+
+.stat-num span{color:var(--accent);}
+
+.stat-label{
+  font-size:0.7rem;
+  color:var(--muted);
+  letter-spacing:0.04em;
+  text-transform:uppercase;
+}
+
+/* ─── GLOW ORBS ─── */
+.orb{
+  position:absolute;
+  border-radius:50%;
+  filter:blur(80px);
+  pointer-events:none;
+}
+
+.orb-1{width:400px;height:400px;background:radial-gradient(circle,rgba(74,158,255,0.06),transparent 70%);top:-100px;left:-100px;}
+.orb-2{width:300px;height:300px;background:radial-gradient(circle,rgba(201,168,76,0.05),transparent 70%);bottom:50px;right:50px;}
+
+/* ─── POPUP OVERLAY ─── */
+.popup-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.7);
+  backdrop-filter:blur(8px);
+  z-index:200;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 0.3s ease;
+}
+
+.popup-overlay.show{
+  opacity:1;
+  pointer-events:all;
+}
+
+.popup-box{
+  background:rgba(13,17,23,0.98);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:20px;
+  padding:40px 44px;
+  max-width:460px;
+  width:90%;
+  position:relative;
+  box-shadow:0 40px 80px rgba(0,0,0,0.6),inset 0 1px 0 rgba(255,255,255,0.05);
+  transform:translateY(16px) scale(0.97);
+  transition:transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+.popup-overlay.show .popup-box{
+  transform:translateY(0) scale(1);
+}
+
+.popup-close{
+  position:absolute;
+  top:16px;right:18px;
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:8px;
+  width:32px;height:32px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;
+  color:var(--muted);
+  font-size:1rem;
+  transition:all 0.2s;
+}
+
+.popup-close:hover{background:rgba(255,255,255,0.1);color:var(--text);}
+
+.popup-icon{
+  font-size:2.4rem;
+  margin-bottom:16px;
+  display:block;
+}
+
+.popup-title{
+  font-family:'Syne',sans-serif;
+  font-size:1.4rem;
+  font-weight:800;
+  color:#fff;
+  margin-bottom:10px;
+  letter-spacing:-0.02em;
+}
+
+.popup-subtitle{
+  font-size:0.875rem;
+  color:var(--muted);
+  line-height:1.65;
+  margin-bottom:24px;
+}
+
+/* Contact popup */
+.contact-row{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:14px 18px;
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:12px;
+  margin-bottom:10px;
+  transition:border-color 0.2s;
+}
+
+.contact-row:hover{border-color:rgba(74,158,255,0.2);}
+
+.contact-icon{
+  width:40px;height:40px;
+  border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;
+  flex-shrink:0;
+}
+
+.contact-icon.phone{background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.2);}
+.contact-icon.email{background:rgba(74,158,255,0.1);border:1px solid rgba(74,158,255,0.2);}
+.contact-icon.chat{background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.2);}
+
+.contact-label{font-size:0.72rem;color:var(--muted);letter-spacing:0.04em;text-transform:uppercase;margin-bottom:2px;}
+.contact-value{font-size:0.9rem;color:var(--text);font-weight:500;}
+
+/* Pricing popup */
+.pricing-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-bottom:8px;
+}
+
+.pricing-card{
+  padding:18px;
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:14px;
+  text-align:center;
+  transition:all 0.2s;
+  cursor:pointer;
+  position:relative;
+}
+
+.pricing-card:hover{border-color:rgba(74,158,255,0.25);background:rgba(74,158,255,0.04);}
+
+.pricing-card.featured{
+  border-color:rgba(201,168,76,0.3);
+  background:rgba(201,168,76,0.04);
+}
+
+.pricing-badge{
+  position:absolute;
+  top:-10px;left:50%;transform:translateX(-50%);
+  padding:3px 10px;
+  background:linear-gradient(135deg,#b8922a,#dab84c);
+  border-radius:100px;
+  font-size:0.6rem;
+  font-weight:700;
+  color:#0a0800;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+
+.pricing-plan{font-size:0.75rem;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:8px;}
+.pricing-price{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:#fff;margin-bottom:2px;}
+.pricing-price span{font-size:0.75rem;color:var(--muted);font-family:'DM Sans',sans-serif;font-weight:400;}
+.pricing-desc{font-size:0.72rem;color:var(--muted);margin-bottom:12px;line-height:1.4;}
+
+.pricing-cta{
+  width:100%;
+  padding:9px;
+  border-radius:8px;
+  border:none;
+  font-size:0.78rem;
+  font-weight:600;
+  font-family:'DM Sans',sans-serif;
+  cursor:pointer;
+  transition:all 0.2s;
+}
+
+.pricing-cta.free{background:rgba(74,158,255,0.15);border:1px solid rgba(74,158,255,0.25);color:var(--accent);}
+.pricing-cta.free:hover{background:rgba(74,158,255,0.25);}
+.pricing-cta.pro{background:linear-gradient(135deg,#b8922a,#dab84c);color:#0a0800;}
+.pricing-cta.pro:hover{box-shadow:0 4px 16px rgba(201,168,76,0.3);}
+
+.pricing-note{font-size:0.72rem;color:var(--muted);text-align:center;margin-top:4px;}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:900px){
+  nav{padding:0 20px;}
+  .nav-links{display:none;}
+  .hero{grid-template-columns:1fr;padding:48px 24px;gap:40px;min-height:auto;}
+  .detection-panel{padding:24px;}
+  .stats-row{grid-template-columns:repeat(3,1fr);}
+}
+
+</style>
+</head>
+<body>
+
+<!-- ─── HOMEPAGE ─── -->
+<div id="homepage">
+
+  <nav>
+    <a href="#" class="nav-logo">
+      <div class="nav-logo-mark">TS</div>
+      TruthLens
+    </a>
+    <ul class="nav-links">
+      <li><a href="#" class="has-arrow">Solutions</a></li>
+      <li><a href="#" class="has-arrow">Industries</a></li>
+      <li><a href="#" class="has-arrow">Resources</a></li>
+      <li id="nav-contact"><a href="#" onclick="return false;">Contact</a></li>
+      <li id="nav-pricing"><a href="#" onclick="return false;">Pricing</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="#" class="btn btn-ghost">Sign In</a>
+      <button class="btn btn-primary" onclick="goToSecond()">▶ View Demo</button>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="hero-left">
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:24px;flex-wrap:wrap;">
+        <div class="hero-badge">
+          <span class="hero-badge-dot"></span>
+          Deepfake Detection
+        </div>
+        <div class="hero-certs">
+          <div class="cert-badge">ISO<br>27001</div>
+          <div class="cert-badge">AICPA<br>SOC</div>
+          <div class="cert-badge">GDPR</div>
+        </div>
+      </div>
+
+      <h1>Deepfake Detector for<br><span class="accent">Videos & Images</span></h1>
+
+      <p class="hero-desc">Detect AI-generated deepfakes, manipulated videos, and synthetic media with advanced computer vision technology. Protect your organization from sophisticated video fraud, misinformation campaigns, and identity impersonation across all digital platforms.</p>
+
+      <div class="hero-actions">
+        <button class="btn btn-gold btn-lg" onclick="goToSecond()">Start Free Analysis →</button>
+        <button class="btn btn-ghost btn-lg">Schedule Demo</button>
+      </div>
+
+      <div class="hero-features">
+        <div class="feature-row"><div class="feature-dot"></div><span>Full Detection</span></div>
+        <div class="feature-row"><div class="feature-dot"></div><span>On-site updates</span></div>
+        <div class="feature-row"><div class="feature-dot"></div><span>Advanced News Analysis</span></div>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="detection-panel">
+        <div class="panel-header">
+          <div class="panel-title">Basic Deepfake Detection Analysis</div>
+          <div class="panel-subtitle">Unlock <strong>faster speeds and even better accuracy</strong> with our custom enterprise models.</div>
+          <div class="panel-cta-link" onclick="goToSecond()">Book your demo today</div>
+        </div>
+
+        <button class="upload-btn" onclick="goToSecond()">
+          <span class="upload-icon">⬆</span>
+          Upload File
+        </button>
+
+        <div class="img-grid">
+          <div class="img-tile scanning">
+            <div class="face face-1">
+              <img src="Screenshot 2026-03-14 215339.png" alt="">
+            </div>
+            <span class="ai-tag scan">Scanning…</span>
+          </div>
+          <div class="img-tile">
+            <div class="face face-2">
+              <img src="Screenshot 2026-03-15 042508.png" alt="">
+            </div>
+            <span class="ai-tag fake">AI Generated</span>
+          </div>
+          <div class="img-tile">
+            <div class="face face-3">
+              <img src="Screenshot 2026-03-15 042531.png" alt="">
+            </div>
+            <span class="ai-tag real">Authentic</span>
+          </div>
+          <div class="img-tile">
+            <div class="face face-4">
+              <img src="Screenshot 2026-03-15 042538.png" alt="">
+            </div>
+            <span class="ai-tag real">Authentic</span>
+          </div>
+          <div class="img-tile">
+            <div class="face face-5">
+              <img src="Screenshot 2026-03-15 042601.png" alt="">
+            </div>
+            <span class="ai-tag fake">AI Generated</span>
+          </div>
+          <div class="img-tile">
+            <div class="face face-6">
+              <img src="Screenshot 2026-03-15 042407.png" alt="">
+            </div>
+            <span class="ai-tag real">Authentic</span>
+          </div>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat">
+            <span class="stat-num">99.<span>7%</span></span>
+            <span class="stat-label">Accuracy</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">2.<span>4s</span></span>
+            <span class="stat-label">Avg. Scan</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">50</span>
+            <span class="stat-label">Media Scanned</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ─── CONTACT POPUP ─── -->
+<div class="popup-overlay" id="popup-contact" onclick="closeOnOverlay(event,'contact')">
+  <div class="popup-box">
+    <button class="popup-close" onclick="closePopup('contact')">✕</button>
+    <span class="popup-icon">📞</span>
+    <div class="popup-title">Get in Touch</div>
+    <div class="popup-subtitle">Our team is available 24/7. Reach us through any of the channels below.</div>
+
+    <div class="contact-row">
+      <div class="contact-icon phone">📱</div>
+      <div>
+        <div class="contact-label">Phone / WhatsApp</div>
+        <div class="contact-value">+91 (800) 874-8265</div>
+      </div>
+    </div>
+
+    <div class="contact-row">
+      <div class="contact-icon phone">🏢</div>
+      <div>
+        <div class="contact-label">Enterprise Hotline</div>
+        <div class="contact-value">+91 (888) 212-4400</div>
+      </div>
+    </div>
+
+    <div class="contact-row">
+      <div class="contact-icon email">✉️</div>
+      <div>
+        <div class="contact-label">Email Support</div>
+        <div class="contact-value">support@truthlens.ai</div>
+      </div>
+    </div>
+
+    <div class="contact-row">
+      <div class="contact-icon chat">💬</div>
+      <div>
+        <div class="contact-label">Live Chat</div>
+        <div class="contact-value">Available on this page · Avg. reply &lt; 2 min</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── PRICING POPUP ─── -->
+<div class="popup-overlay" id="popup-pricing" onclick="closeOnOverlay(event,'pricing')">
+  <div class="popup-box">
+    <button class="popup-close" onclick="closePopup('pricing')">✕</button>
+    <span class="popup-icon">🚀</span>
+    <div class="popup-title">Start Your Free Trial</div>
+    <div class="popup-subtitle">No credit card required. Analyze up to 50 files free every month.</div>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="pricing-plan">Free</div>
+        <div class="pricing-price">$0 <span>/ mo</span></div>
+        <div class="pricing-desc">50 scans/month · Images & Text · Basic reports</div>
+        <button class="pricing-cta free" onclick="goToSecond()">Start Free →</button>
+      </div>
+      <div class="pricing-card featured">
+        <div class="pricing-badge">Most Popular</div>
+        <div class="pricing-plan">Pro</div>
+        <div class="pricing-price">$15 <span>/ mo</span></div>
+        <div class="pricing-desc">Unlimited scans · Video & Audio · API access</div>
+        <button class="pricing-cta pro" onclick="goToSecond()">Try Free 14 Days</button>
+      </div>
+    </div>
+
+    <div class="pricing-note">✓ Cancel anytime &nbsp;·&nbsp; ✓ GDPR compliant &nbsp;·&nbsp; ✓ SOC 2 certified</div>
+  </div>
+</div>
+
+<script>
+
+/* ── NAVIGATE TO SECOND PAGE ── */
+function goToSecond() {
+  window.location.href = 'secondpage.html';
+}
+
+/* ── POPUP SYSTEM ── */
+const popupTimers = {};
+
+function openPopup(type) {
+  clearTimeout(popupTimers[type]);
+  document.getElementById('popup-' + type).classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePopup(type) {
+  popupTimers[type] = setTimeout(() => {
+    document.getElementById('popup-' + type).classList.remove('show');
+    document.body.style.overflow = '';
+  }, 150);
+}
+
+function closeOnOverlay(e, type) {
+  if (e.target === document.getElementById('popup-' + type)) {
+    closePopup(type);
+  }
+}
+
+/* ── ATTACH HOVER EVENTS VIA JS (reliable, no inline attribute conflicts) ── */
+document.addEventListener('DOMContentLoaded', () => {
+
+  const navContact = document.getElementById('nav-contact');
+  navContact.addEventListener('mouseenter', () => openPopup('contact'));
+  navContact.addEventListener('mouseleave', () => closePopup('contact'));
+
+  const navPricing = document.getElementById('nav-pricing');
+  navPricing.addEventListener('mouseenter', () => openPopup('pricing'));
+  navPricing.addEventListener('mouseleave', () => closePopup('pricing'));
+
+  // Keep popup alive when cursor moves into it from nav
+  const popupContact = document.getElementById('popup-contact');
+  popupContact.addEventListener('mouseenter', () => clearTimeout(popupTimers['contact']));
+  popupContact.addEventListener('mouseleave', () => closePopup('contact'));
+
+  const popupPricing = document.getElementById('popup-pricing');
+  popupPricing.addEventListener('mouseenter', () => clearTimeout(popupTimers['pricing']));
+  popupPricing.addEventListener('mouseleave', () => closePopup('pricing'));
+
+});
+
+/* ── CLOSE WITH ESCAPE KEY ── */
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    closePopup('contact');
+    closePopup('pricing');
+  }
+});
+
+</script>
+</body>
+</html>
